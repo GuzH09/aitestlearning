@@ -1,0 +1,47 @@
+{
+  "sales": [
+    {
+      "id": "V-001",
+      "client": "Maria García",
+      "date": "2026-02-20",
+      "total": 1247
+    },
+    {
+      "id": "V-002",
+      "client": "Carlos López",
+      "date": "2026-02-19",
+      "total": 89
+    },
+    {
+      "id": "V-003",
+      "client": "Ana Rodríguez",
+      "date": "2026-02-18",
+      "total": 432
+    }
+  ],
+  "products": [
+    {
+      "name": "Laptop HP Pavilion",
+      "sku": "SKU-001",
+      "quantity": 15,
+      "price": 899
+    },
+    {
+      "name": "Mouse Logitech MX",
+      "sku": "SKU-002",
+      "quantity": 42,
+      "price": 79
+    },
+    {
+      "name": "Monitor Dell 27",
+      "sku": "SKU-003",
+      "quantity": 8,
+      "price": 349
+    }
+  ],
+  "config": {
+    "storeName": "Mi Tienda Online",
+    "currency": "USD",
+    "timezone": "America/Mexico_City"
+  }
+}

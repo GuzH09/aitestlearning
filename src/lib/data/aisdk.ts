@@ -7,7 +7,7 @@ import {
   buildSystemPrompt,
   getActionByLabel,
   buildActionUrl,
-} from "@/lib/actions-registry";
+} from "@/lib/utils/actions-registry";
 
 export async function handleAiSearch(query: string): Promise<{
   success: boolean;

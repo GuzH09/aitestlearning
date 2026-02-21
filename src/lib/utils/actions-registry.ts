@@ -1,3 +1,6 @@
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
+
 export interface ActionDefinition {
   label: string;
   route: string;
@@ -65,4 +68,8 @@ Rules:
 - You MUST choose the single most relevant action based on the user's intent.
 - Do not explain your reasoning. Just return the action label.
 - If the request is ambiguous, return the "no-action" action.`;
+}
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
 }
