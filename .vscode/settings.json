@@ -1,0 +1,6 @@
+{
+  "editor.rulers": [150],
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "indentRainbow.colorOnWhiteSpaceOnly": true
+}

@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "skills": {
+    "nextjs-caching": {
+      "source": "goncy/skills",
+      "sourceType": "github",
+      "computedHash": "e30f3691ef0b8c1a7b2eb1f08c68d6ed83c70385856d9848a33c6e7f259c44e1"
+    },
+    "nextjs-navigation": {
+      "source": "goncy/skills",
+      "sourceType": "github",
+      "computedHash": "383fd1b34d5b912bbb8e13af00af42973c92f5fdc8708eee551197c7e6bbca42"
+    },
+    "nextjs-rendering": {
+      "source": "goncy/skills",
+      "sourceType": "github",
+      "computedHash": "c58ce00a2d570d7fb7b65a5a57f455a8b547868c847935d83df890a8332b767d"
+    },
+    "whatsapp-web-js": {
+      "source": "goncy/skills",
+      "sourceType": "github",
+      "computedHash": "271c66ad9b1f88861244ede2d3b6baaf5f885fe381722de0d939c5ab0afc14c6"
+    }
+  }
+}
