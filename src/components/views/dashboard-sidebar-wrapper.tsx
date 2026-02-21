@@ -9,6 +9,7 @@ import { DashboardAppSidebar } from "@/components/views/dashboard-app-sidebar";
 import { Separator } from "@/components/ui/separator";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { ViewTransition } from "react";
 
 const pageHeaders: Record<string, string> = {
   "/home": "Inicio",

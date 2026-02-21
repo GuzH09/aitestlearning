@@ -1,19 +1,51 @@
 "use server";
 
 import { google } from "@ai-sdk/google";
-import { generateText, Output } from "ai";
-import { z } from "zod";
+import { generateText, NoObjectGeneratedError, Output } from "ai";
+import {
+  ACTION_LABELS,
+  buildSystemPrompt,
+  getActionByLabel,
+  buildActionUrl,
+} from "@/lib/actions-registry";
 
-export async function handleAiSearch(query: string) {
-  const { text } = await generateText({
-    model: google("gemini-2.5-flash"),
-    output: Output.object({
-      schema: z.object({
-        action: z.enum(["add-item", "remove-item", "update-item"]),
+export async function handleAiSearch(query: string): Promise<{
+  success: boolean;
+  action?: string;
+  redirectUrl?: string;
+  error?: string;
+}> {
+  try {
+    const { output } = await generateText({
+      model: google("gemini-2.5-flash"),
+      output: Output.choice({
+        options: ACTION_LABELS,
       }),
-    }),
-    prompt: query,
-  });
+      system: buildSystemPrompt(),
+      prompt: query,
+    });
 
-  return { success: true, generatedText: text };
+    if (!output) {
+      return { success: false, error: "No action could be determined." };
+    }
+
+    const action = getActionByLabel(output);
+    if (!action) {
+      return { success: false, error: `Unknown action: ${output}` };
+    }
+
+    return {
+      success: true,
+      action: output,
+      redirectUrl: buildActionUrl(action),
+    };
+  } catch (error) {
+    if (NoObjectGeneratedError.isInstance(error)) {
+      return {
+        success: false,
+        error: "Could not classify your request. Please try rephrasing.",
+      };
+    }
+    throw error;
+  }
 }

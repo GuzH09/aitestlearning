@@ -1,37 +1,47 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { handleAiSearch } from "@/lib/data/aisdk";
 import { Input } from "@/components/ui/input";
-import { useState } from "react";
+import { handleAiSearch } from "@/lib/data/aisdk";
+import { useRouter } from "next/navigation";
+import { useState, useTransition } from "react";
 
 export function HomeClient() {
   const [query, setQuery] = useState("");
-  const [result, setResult] = useState<{
-    success: boolean;
-    generatedText: string;
-  } | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [isPending, startTransition] = useTransition();
+  const router = useRouter();
 
-  const handleSearch = async (query: string) => {
-    const result = await handleAiSearch(query);
-    setResult(result);
+  const handleSubmit = (e: React.SubmitEvent) => {
+    e.preventDefault();
+    if (!query.trim()) return;
+
+    setError(null);
+    startTransition(async () => {
+      const result = await handleAiSearch(query.trim());
+
+      if (result.success && result.redirectUrl) {
+        router.push(result.redirectUrl);
+      } else {
+        setError(result.error ?? "Something went wrong.");
+      }
+    });
   };
 
   return (
-    <div className="flex flex-col mt-6">
+    <form onSubmit={handleSubmit} className="flex gap-2">
       <Input
-        id="input-demo"
         type="text"
-        placeholder="Prompt"
+        placeholder='Try "I want to add a new product" or "Create a sale"...'
         value={query}
         onChange={(e) => setQuery(e.target.value)}
+        disabled={isPending}
+        className="flex-1"
       />
-      <Button onClick={() => handleSearch(query)}>Search</Button>
-      {result && (
-        <div className="mt-4">
-          <p>{result.generatedText}</p>
-        </div>
-      )}
-    </div>
+      <Button type="submit" disabled={isPending || !query.trim()}>
+        {isPending ? "Thinking..." : "Go"}
+      </Button>
+      {error ? <p className="text-sm text-destructive">{error}</p> : null}
+    </form>
   );
 }

@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Rubik } from "next/font/google";
 import "@/app/globals.css";
 import DashboardSidebarWrapper from "@/components/views/dashboard-sidebar-wrapper";
+import { Suspense } from "react";
 
 const rubik = Rubik({
   subsets: ["latin"],
@@ -54,7 +55,9 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body className={`${rubik.className} antialiased`}>
-        <DashboardSidebarWrapper>{children}</DashboardSidebarWrapper>
+        <DashboardSidebarWrapper>
+          <Suspense fallback={null}>{children}</Suspense>
+        </DashboardSidebarWrapper>
       </body>
     </html>
   );
