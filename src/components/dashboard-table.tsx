@@ -6,6 +6,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Skeleton } from "@/components/ui/skeleton";
 
 type Column<T> = {
   header: string;
@@ -39,6 +40,39 @@ export function DashboardTable<T>({
             {columns.map((col) => (
               <TableCell key={col.header} className={col.className}>
                 {col.accessorFn(row)}
+              </TableCell>
+            ))}
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
+  );
+}
+
+export function DashboardTableSkeleton({
+  columns,
+  rows = 5,
+}: {
+  columns: number;
+  rows?: number;
+}) {
+  return (
+    <Table>
+      <TableHeader>
+        <TableRow>
+          {Array.from({ length: columns }).map((_, i) => (
+            <TableHead key={`skeleton-head-${String(i)}`}>
+              <Skeleton className="h-4 w-24" />
+            </TableHead>
+          ))}
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {Array.from({ length: rows }).map((_, rowIdx) => (
+          <TableRow key={`skeleton-row-${String(rowIdx)}`}>
+            {Array.from({ length: columns }).map((_, colIdx) => (
+              <TableCell key={`skeleton-cell-${String(colIdx)}`}>
+                <Skeleton className="h-4 w-full" />
               </TableCell>
             ))}
           </TableRow>

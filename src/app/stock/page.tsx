@@ -1,3 +1,5 @@
+import { DashboardTableSkeleton } from "@/components/dashboard-table";
+import { Skeleton } from "@/components/ui/skeleton";
 import { StockPageClient } from "./page.client";
 import { Suspense } from "react";
 import { StockTable } from "./stock-table";
@@ -10,12 +12,12 @@ export default async function StockPage() {
       </div>
 
       <div className="rounded-md border">
-        <Suspense fallback={<div>Cargando...</div>}>
+        <Suspense fallback={<DashboardTableSkeleton columns={4} />}>
           <StockTable />
         </Suspense>
       </div>
 
-      <Suspense>
+      <Suspense fallback={<Skeleton className="h-9 w-40 rounded-md" />}>
         <StockPageClient />
       </Suspense>
     </div>

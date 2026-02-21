@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { ConfigurationInfo } from "./configuration-info";
+import { ConfigurationInfo, ConfigurationInfoSkeleton } from "./configuration-info";
 
 export default async function ConfigurationPage() {
   return (
@@ -8,7 +8,7 @@ export default async function ConfigurationPage() {
         <h2 className="text-xl font-semibold tracking-tight">Configuración</h2>
       </div>
 
-      <Suspense fallback={<div>Cargando...</div>}>
+      <Suspense fallback={<ConfigurationInfoSkeleton />}>
         <ConfigurationInfo />
       </Suspense>
     </div>
