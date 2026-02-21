@@ -26,12 +26,28 @@ export async function handleAiSearch(query: string): Promise<{
     });
 
     if (!output) {
-      return { success: false, error: "No action could be determined." };
+      return {
+        success: false,
+        error:
+          "No se pudo clasificar la solicitud. Por favor, intenta reformularla.",
+      };
     }
 
     const action = getActionByLabel(output);
+
+    if (action?.label === "no-action") {
+      return {
+        success: false,
+        error:
+          "No se pudo clasificar la solicitud. Por favor, intenta reformularla.",
+      };
+    }
+
     if (!action) {
-      return { success: false, error: `Unknown action: ${output}` };
+      return {
+        success: false,
+        error: `No se pudo clasificar la solicitud. Por favor, intenta reformularla.`,
+      };
     }
 
     return {
@@ -43,7 +59,8 @@ export async function handleAiSearch(query: string): Promise<{
     if (NoObjectGeneratedError.isInstance(error)) {
       return {
         success: false,
-        error: "Could not classify your request. Please try rephrasing.",
+        error:
+          "No se pudo clasificar la solicitud. Por favor, intenta reformularla.",
       };
     }
     throw error;

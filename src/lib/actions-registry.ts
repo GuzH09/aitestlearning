@@ -31,13 +31,19 @@ export const ACTIONS_REGISTRY: ActionDefinition[] = [
       "Change a configuration or setting. Use when the user wants to modify preferences, update settings, or configure the application.",
     pageLabel: "Configuración",
   },
+  {
+    label: "no-action",
+    route: "/",
+    modalParam: "no-action",
+    description:
+      "No action was determined. Use when the user's request is not related to any of the available actions.",
+    pageLabel: "Inicio",
+  },
 ];
 
 export const ACTION_LABELS = ACTIONS_REGISTRY.map((a) => a.label);
 
-export function getActionByLabel(
-  label: string,
-): ActionDefinition | undefined {
+export function getActionByLabel(label: string): ActionDefinition | undefined {
   return ACTIONS_REGISTRY.find((a) => a.label === label);
 }
 
@@ -58,5 +64,5 @@ ${actionsDescription}
 Rules:
 - You MUST choose the single most relevant action based on the user's intent.
 - Do not explain your reasoning. Just return the action label.
-- If the request is ambiguous, pick the closest match.`;
+- If the request is ambiguous, return the "no-action" action.`;
 }
